@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp">
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/ic_car"
+            android:scaleType="fitXY"
+            app:shapeAppearanceOverlay="@style/RoundedImageView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_bidder_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="اسم المزايد"
+            android:fontFamily="@font/tajawal_bold"
+            android:textColor="@color/blue_500"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/iv_profile"
+            app:layout_constraintTop_toTopOf="@id/iv_profile"
+            android:layout_marginTop="6dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="13:95:00"
+            android:fontFamily="@font/tajawal"
+            app:layout_constraintTop_toBottomOf="@id/tv_bidder_name"
+            app:layout_constraintStart_toStartOf="@id/tv_bidder_name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@color/yellow_100"
+            android:text="+20"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:paddingHorizontal="6dp"
+            android:textColor="@color/yellow_500"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/iv_profile"
+            app:layout_constraintTop_toTopOf="@id/iv_profile" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

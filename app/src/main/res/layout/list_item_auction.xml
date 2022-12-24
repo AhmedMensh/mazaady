@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:background="@drawable/bg_rounded_with_grey_border"
+        android:elevation="2dp"
+        android:padding="4dp">
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_photo"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+
+            android:scaleType="fitXY"
+
+            android:src="@drawable/ic_car"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/RoundedImageView10" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rounded_top_right_bottom_left"
+            android:paddingHorizontal="4dp"
+            android:paddingVertical="2dp"
+            android:text="مزاد مباشر"
+            android:fontFamily="@font/tajawal"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/iv_photo"
+            app:layout_constraintStart_toStartOf="@+id/iv_photo" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="سيارة سريعة بى ام دابليو تصنيع  2021 حالته جديدة"
+            android:textSize="12sp"
+            android:fontFamily="@font/tajawal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/iv_photo"
+            app:layout_constraintTop_toBottomOf="@id/iv_photo" />
+
+        <TextView
+            android:id="@+id/tv_start_after_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="يبدأ بعد"
+            android:textSize="11sp"
+            android:fontFamily="@font/tajawal"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+        <TextView
+            android:id="@+id/tv_count_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="31:25:55"
+            android:textColor="@color/black"
+            android:layout_marginStart="10dp"
+            android:textSize="12sp"
+            android:fontFamily="@font/tajawal_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_start_after_label" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="د س يوم"
+            android:fontFamily="@font/tajawal"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="@id/tv_count_down"
+            app:layout_constraintStart_toStartOf="@id/tv_count_down"
+            app:layout_constraintTop_toBottomOf="@id/tv_count_down" />
+
+
+
+        <TextView
+            android:id="@+id/tv_start_price_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="بداية المزاد"
+            android:fontFamily="@font/tajawal"
+            android:textSize="11sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20000"
+            android:fontFamily="@font/tajawal_bold"
+            android:layout_marginEnd="10dp"
+            android:textColor="@color/orange_500"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_start_price_label" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ريال"
+            android:textColor="@color/orange_500"
+            android:textSize="11sp"
+            android:fontFamily="@font/tajawal"
+            app:layout_constraintEnd_toEndOf="@id/tv_price"
+            app:layout_constraintStart_toStartOf="@id/tv_price"
+            app:layout_constraintTop_toBottomOf="@id/tv_price" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

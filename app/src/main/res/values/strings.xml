@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Mazaady</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="main_category">Main Category</string>
+    <string name="sub_category">Sub Category</string>
+    <string name="show_result">Show Result</string>
+    <string name="auction_start_after">المزاد يبدا بعد</string>
+    <string name="placeholder_timer">31:25:55</string>
+    <string name="timer_units">دقيقه ساعه يوم</string>
+    <string name="date">بتاريخ</string>
+    <string name="placeholder_date">24-12-2022</string>
+    <string name="placeholder_time">13:55:00</string>
+    <string name="auction_name">اسم المزاد</string>
+    <string name="auction_code">code 123</string>
+    <string name="rate_auction">تقييم المزاد</string>
+    <string name="current_auction_value">القيمة الحالية للمزاد</string>
+    <string name="placeholder_price">2000 $</string>
+    <string name="auction_value_after_tax">القيمة الحالية بعد الضريبة</string>
+    <string name="immediate_purchase_price">سعر الشراء الفورى</string>
+    <string name="discard">انسحاب</string>
+    <string name="purchase_now">شراء الان</string>
+    <string name="bidders">المزايدون</string>
+    <string name="show_all">عرض الكل</string>
+    <string name="buyer">البائع</string>
+    <string name="bidder_name">اسم المزايد</string>
+    <string name="placeholder_phone">+966 5455 5515</string>
+    <string name="products">4 منتجات</string>
+    <string name="similar_products">منتجات متشابهه</string>
+</resources>

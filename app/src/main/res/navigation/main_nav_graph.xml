@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/user_nav_graph"
+    app:startDestination="@id/secondScreenFragment">
+
+    <fragment
+        android:id="@+id/firsScreenFragment"
+        android:name="com.example.mazaady.presentation.first_screen.FirstScreenFragment" />
+    <dialog
+        android:id="@+id/firstScreenBottomSheetFragment"
+        android:name="com.example.mazaady.presentation.first_screen.FirstScreenBottomSheetFragment" />
+    <fragment
+        android:id="@+id/secondScreenFragment"
+        android:name="com.example.mazaady.presentation.second_screen.SecondScreenFragment"
+        />
+</navigation>
