@@ -13,7 +13,7 @@ data class PropertyResponse(
     @field:Json(name = "name")
     val name: String? = null,
     @field:Json(name = "options")
-    val options: List<PropertyOptionResponse?>? = null,
+    val options: MutableList<PropertyOptionResponse?>? = null,
     @field:Json(name = "other_value")
     val otherValue: Any? = null,
     @field:Json(name = "parent")

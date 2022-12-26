@@ -11,8 +11,9 @@ data class PropertyOptionModel(
     val name: String,
     val parent: Int,
     val slug: String,
-    var isOtherOption : Boolean = false
-) : Parcelable,AdapterItem{
+    var isOtherOption: Boolean = false,
+    var isSelected: Boolean = false
+) : Parcelable, AdapterItem {
     override fun id(): String {
         return id.toString()
     }

@@ -16,4 +16,10 @@ interface MazaadyApiService {
     ): Response<PropertiesResponse>
 
 
+    @GET("/api/get-options-child/{option_id}")
+    suspend fun getOptionProperties(
+        @Path("option_id") optionId: Int
+    ): Response<PropertiesResponse>
+
+
 }

@@ -25,6 +25,14 @@ fun PropertyOptionResponse.toDomain() = PropertyOptionModel(
 )
 
 
-fun List<PropertyOptionResponse?>?.toDomain(): List<PropertyOptionModel?>? {
+fun MutableList<PropertyOptionResponse?>?.toDomain(): List<PropertyOptionModel?>? {
+    this?.add(0,PropertyOptionResponse(
+        id = -1,
+        child = false,
+        name = "other",
+        parent = 0,
+        slug = "",
+        ))
+
     return this?.map { it?.toDomain() }
 }

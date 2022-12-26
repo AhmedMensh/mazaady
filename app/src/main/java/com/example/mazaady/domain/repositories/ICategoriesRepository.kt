@@ -13,4 +13,8 @@ interface ICategoriesRepository {
     suspend fun getCategoryProperties(subCategoryId: Int): DataResult<PropertiesResponse> {
         TODO("Implement your code")
     }
+
+    suspend fun getOptionProperties(optionId : Int) : DataResult<PropertiesResponse>{
+        TODO("Implement your code")
+    }
 }

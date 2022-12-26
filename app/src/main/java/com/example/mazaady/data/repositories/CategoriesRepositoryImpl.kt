@@ -11,7 +11,6 @@ class CategoriesRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource
 ) : ICategoriesRepository {
 
-
     override suspend fun getCategories(): DataResult<CategoriesResponse> {
         return remoteDataSource.getCategories()
     }
@@ -20,5 +19,7 @@ class CategoriesRepositoryImpl @Inject constructor(
         return remoteDataSource.getCategoryProperties(subCategoryId)
     }
 
-
+    override suspend fun getOptionProperties(optionId: Int): DataResult<PropertiesResponse> {
+        return remoteDataSource.getOptionProperties(optionId)
+    }
 }

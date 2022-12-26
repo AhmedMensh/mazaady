@@ -8,6 +8,7 @@ import com.example.mazaady.domain.models.PropertyModel
 import com.example.mazaady.domain.models.PropertyOptionModel
 import com.example.mazaady.domain.models.SubCategoryModel
 import com.example.mazaady.domain.usecases.GetCategoriesUseCase
+import com.example.mazaady.domain.usecases.GetOptionPropertiesUseCase
 import com.example.mazaady.domain.usecases.GetSubCategoryPropertiesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,6 +23,7 @@ import javax.inject.Inject
 class FirstScreenViewModel @Inject constructor(
     private val categoriesUseCase: GetCategoriesUseCase,
     private val subCategoryPropertiesUseCase: GetSubCategoryPropertiesUseCase,
+    private val getOptionPropertiesUseCase: GetOptionPropertiesUseCase
 ) :
     ViewModel() {
 
@@ -33,7 +35,7 @@ class FirstScreenViewModel @Inject constructor(
     private var categories: List<CategoryModel?>? = emptyList()
     private var subCategories: List<SubCategoryModel?>? = emptyList()
     private var options: List<PropertyOptionModel?>? = emptyList()
-    private var properties: List<PropertyModel?>? = emptyList()
+    private var properties: MutableList<PropertyModel?>? = mutableListOf()
     private var currentSelectedProperty: PropertyModel? = null
 
     init {
@@ -56,12 +58,46 @@ class FirstScreenViewModel @Inject constructor(
         }
     }
 
+
+    private fun getOptionProperties(option: PropertyOptionModel, property: PropertyModel?) {
+        viewModelScope.launch {
+            _uiState.emit(FirstScreenUiState.Loading(true))
+            val propertyIndex = properties?.indexOf(property)?.plus(1) ?: 0
+            if (option.id == -1) {
+                val otherProperty =
+                    PropertyModel(
+                        "", -1,
+                        false,
+                        "Specify",
+                        slug = "",
+                        type = "", value = ""
+                    )
+                property?.children = listOf(otherProperty)
+                properties?.addAll(propertyIndex, listOf(otherProperty))
+                _uiState.emit(FirstScreenUiState.ShowPropertiesList(properties))
+            } else
+                when (val result = getOptionPropertiesUseCase(option.id)) {
+                    is DataResult.Success -> {
+                        property?.children = result.content
+
+                        result.content?.let { properties?.addAll(propertyIndex, it) }
+                        _uiState.emit(FirstScreenUiState.ShowPropertiesList(properties))
+                        _uiState.emit(FirstScreenUiState.Loading(false))
+                    }
+                    is DataResult.Error -> {
+                        _uiState.emit(FirstScreenUiState.Error(result.exception.message.orEmpty()))
+                        _uiState.emit(FirstScreenUiState.Loading(false))
+                    }
+                }
+        }
+    }
+
     private fun getCategoryProperties(subCategoryId: Int) {
         viewModelScope.launch {
             _uiState.emit(FirstScreenUiState.Loading(true))
             when (val result = subCategoryPropertiesUseCase(subCategoryId)) {
                 is DataResult.Success -> {
-                    properties = result.content
+                    properties = result.content?.toMutableList()
                     _uiState.emit(FirstScreenUiState.Loading(false))
                     _uiState.emit(FirstScreenUiState.ShowPropertiesList(result.content))
                 }
@@ -97,35 +133,23 @@ class FirstScreenViewModel @Inject constructor(
             }
             is FirstScreenUIEvent.OnPropertyFieldClicked -> {
                 options = event.property.options
-                val newOptions: MutableList<PropertyOptionModel?> = mutableListOf()
-
-                newOptions.add(
-                    PropertyOptionModel(
-                        id = -1,
-                        child = false,
-                        name = "other",
-                        parent = 0,
-                        slug = "",
-                        isOtherOption = true
-                    )
-                )
-                options?.let { newOptions.addAll(it) }
 
                 currentSelectedProperty = event.property
                 viewModelScope.launch {
-                    _uiState.emit(FirstScreenUiState.ShowOptionsBottomSheet(newOptions))
+                    _uiState.emit(FirstScreenUiState.ShowOptionsBottomSheet(options))
                 }
             }
             is FirstScreenUIEvent.OnSubCategorySelected -> {
                 getCategoryProperties(event.subCategoryId)
             }
             is FirstScreenUIEvent.OnPropertyOptionSelected -> {
-                properties?.find { it?.id == currentSelectedProperty?.id }?.selectedOptionModel =
-                    event.option
+                val property = properties?.firstOrNull { it?.id == currentSelectedProperty?.id }
+                property?.selectedOptionModel = event.option
+                property?.options?.map { it?.isSelected = false }
+                property?.options?.firstOrNull { it?.id == event.option.id }?.isSelected = true
+                property?.let { removePropertyChildren(it) }
+                getOptionProperties(event.option, property)
 
-                viewModelScope.launch {
-                    _uiState.emit(FirstScreenUiState.ShowPropertiesList(properties))
-                }
             }
             is FirstScreenUIEvent.OnPropertyFieldTextChanged -> {
                 currentSelectedProperty = event.property
@@ -151,6 +175,11 @@ class FirstScreenViewModel @Inject constructor(
 
         }
     }
+
+    private fun removePropertyChildren(property: PropertyModel?) {
+        if (property != null) property.children?.forEach { removePropertyChildren(it) }
+        property?.children?.let { properties?.removeAll(it) }
+    }
 }
 
 
@@ -164,7 +193,7 @@ sealed class FirstScreenUiState {
 
     class ShowPropertiesList(val properties: List<PropertyModel?>?) : FirstScreenUiState()
     object ShowSubCategoryField : FirstScreenUiState()
-    class ShowResult(val result : String) : FirstScreenUiState()
+    class ShowResult(val result: String) : FirstScreenUiState()
 }
 
 sealed interface FirstScreenUIEvent {

@@ -1,10 +1,8 @@
 package com.example.mazaady.presentation.first_screen.adapters
-
 import android.text.InputType
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mazaady.core.adapter.AdapterDelegate
@@ -38,7 +36,7 @@ class PropertiesAdapterDelegate :
             tiProperty.isHintEnabled = true
             tiProperty.hint = model.name
             etProperty.setText(model.selectedOptionModel?.name)
-            if (model.options.isNullOrEmpty() || model.selectedOptionModel?.isOtherOption == true) {
+            if (model.hasOneOrLessOption()) {
                 etProperty.isFocusable = true
                 etProperty.isFocusableInTouchMode = true
                 etProperty.isCursorVisible = true
@@ -49,8 +47,9 @@ class PropertiesAdapterDelegate :
                     handleCommand(
                         PropertiesAdapterCommand.UpdatePropertyOptionValue(
                             model,
-                            etProperty.text.toString()
-                        ))
+                            text.toString()
+                        )
+                    )
                 }
 
             } else {

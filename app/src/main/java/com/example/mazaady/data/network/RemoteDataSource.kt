@@ -9,4 +9,5 @@ class RemoteDataSource @Inject constructor(
 
     suspend fun getCategories() = safeApiCall { mazaadyApiService.getCategories() }
     suspend fun getCategoryProperties(subCategoryId : Int) = safeApiCall { mazaadyApiService.getCategoryProperties(subCategoryId) }
+    suspend fun getOptionProperties(optionId : Int) = safeApiCall { mazaadyApiService.getOptionProperties(optionId) }
 }
